@@ -18,17 +18,11 @@ def make_tmdb_api_request(method, api_key, extra_params=None):
     params.update(extra_params)
     return load_json_data_from_url(url, params)
 
-movies_database = []
+with open('movies_database.json') as f_obj:
+    movies_database = json.load(f_obj)
 
-for i in range(2, 32):
-    try:
-        movies_database.append(make_tmdb_api_request(method='/movie/%s' % i,
-            api_key='24959752fadb9828c16455ecd99b7957'))
-    except urllib.error.HTTPError:
-        pass
+user_search_subtitle = input()
 
-
-with open('movies_database.json', 'w') as f_obj:
-    json.dump(movies_database, f_obj)
-
-print(movies_database)
+for movie in movies_database:
+    if movie['original_title'].lower().find(user_search_subtitle.lower()) != -1:
+        print(movie['original_title'])
