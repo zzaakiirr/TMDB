@@ -18,3 +18,6 @@ def make_tmdb_api_request(method, api_key, extra_params=None):
     }
     params.update(extra_params)
     return load_json_data_from_url(url, params)
+
+print(make_tmdb_api_request('/movie/215', 
+    api_key = '24959752fadb9828c16455ecd99b7957')['budget'])
