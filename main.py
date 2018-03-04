@@ -14,7 +14,21 @@ def make_tmdb_api_request(method, api_key, extra_params=None):
     url = 'https://api.themoviedb.org/3%s' % method
     params = {
         'api_key': api_key,
-        'language': 'ru',
     }
     params.update(extra_params)
     return load_json_data_from_url(url, params)
+
+movies_database = []
+
+for i in range(2, 32):
+    try:
+        movies_database.append(make_tmdb_api_request(method='/movie/%s' % i,
+            api_key='24959752fadb9828c16455ecd99b7957'))
+    except urllib.error.HTTPError:
+        pass
+
+
+with open('movies_database.json', 'w') as f_obj:
+    json.dump(movies_database, f_obj)
+
+print(movies_database)
