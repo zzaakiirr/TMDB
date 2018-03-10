@@ -38,12 +38,13 @@ similar_genre_movies = []
 similar_budget_movies = []
 equal_release_year_movies = []
 
-if  is_in_database(entered_movie_title):
+if is_in_database(entered_movie_title):
     entered_movie_info = get_movie_info_from_database(entered_movie_title)
 
     entered_movie_genres = get_attr(entered_movie_info, 'genres')
     entered_movie_budget = int(get_attr(entered_movie_info, 'budget'))
-    entered_movie_release_year = int(get_attr(entered_movie_info,
+    entered_movie_release_year = int(get_attr(
+        entered_movie_info,
         'release_date')[:4])
 
 for movie in movies_database:
