@@ -1,6 +1,9 @@
 import urllib.request
 import urllib.parse
 import json
+import os
+
+api_key = os.environ.get('TMDB_key')
 
 
 def load_json_data_from_url(base_url, url_params):
@@ -21,4 +24,4 @@ def make_tmdb_api_request(method, api_key, extra_params=None):
 
 print(make_tmdb_api_request(
     '/movie/215',
-    api_key='24959752fadb9828c16455ecd99b7957')['budget'])
+    api_key=api_key)['budget'])

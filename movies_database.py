@@ -2,6 +2,8 @@ import urllib.request
 import urllib.parse
 import json
 
+api_key = os.environ.get('TMDB_key')
+
 
 def load_json_data_from_url(base_url, url_params):
     url = '%s?%s' % (base_url, urllib.parse.urlencode(url_params))
@@ -20,10 +22,11 @@ def make_tmdb_api_request(method, api_key, extra_params=None):
 
 movies_database = []
 
-for i in range(2, 32):
+for movie_id in range(2, 32):
     try:
-        movies_database.append(make_tmdb_api_request(method='/movie/%s' % i,
-            api_key='24959752fadb9828c16455ecd99b7957'))
+        movies_database.append(make_tmdb_api_request(
+            method='/movie/%s' % i,
+            api_key=api_key))
     except urllib.error.HTTPError:
         pass
 
