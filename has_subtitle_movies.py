@@ -25,5 +25,5 @@ user_search_subtitle = input()
 
 for movie in movies_database:
     if movie['title'].lower().find(
-       (user_search_subtitle.lower()) != -1):
+       user_search_subtitle.lower()) != -1:
         print(movie['title'])
