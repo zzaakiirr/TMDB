@@ -1,6 +1,7 @@
 import urllib.request
 import urllib.parse
 import json
+import os
 
 api_key = os.environ.get('TMDB_key')
 
@@ -25,7 +26,7 @@ movies_database = []
 for movie_id in range(2, 32):
     try:
         movies_database.append(make_tmdb_api_request(
-            method='/movie/%s' % i,
+            method='/movie/%s' % movie_id,
             api_key=api_key))
     except urllib.error.HTTPError:
         pass
