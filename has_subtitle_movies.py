@@ -24,5 +24,6 @@ with open('movies_database.json') as f_obj:
 user_search_subtitle = input()
 
 for movie in movies_database:
-    if movie['original_title'].lower().find(user_search_subtitle.lower()) != -1:
-        print(movie['original_title'])
+    if movie['title'].lower().find(
+       (user_search_subtitle.lower()) != -1):
+        print(movie['title'])
