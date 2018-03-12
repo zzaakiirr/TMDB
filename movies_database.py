@@ -22,8 +22,10 @@ def make_tmdb_api_request(method, api_key, extra_params=None):
     return load_json_data_from_url(url, params)
 
 movies_database = []
+first_movie_id = 2
+last_movie_id = 32
 
-for movie_id in range(2, 32):
+for movie_id in range(first_movie_id, last_movie_id):
     try:
         movies_database.append(make_tmdb_api_request(
             method='/movie/%s' % movie_id,
