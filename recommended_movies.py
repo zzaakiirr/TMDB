@@ -11,12 +11,18 @@ def print_movies_from_list(movies_list):
         print('\t' + movie)
 
 
+def cut_movie_release_year_from(movie_release_date):
+    # movie_release_date format: 'year-month-day'
+    movie_release_year = int(movie_release_date.split('-')[0])
+    return movie_release_year
+
+
 def is_in_database(entered_movie_title):
     for movie in movies_database:
         if movie['title'].lower() == entered_movie_title.lower():
-            return 1
+            return True
         else:
-            return 0
+            return False
 
 
 def get_movie_info_from_database(entered_movie_title):
@@ -38,25 +44,29 @@ similar_genre_movies = []
 similar_budget_movies = []
 equal_release_year_movies = []
 
+
 if is_in_database(entered_movie_title):
     entered_movie_info = get_movie_info_from_database(entered_movie_title)
 
     entered_movie_genres = get_attr(entered_movie_info, 'genres')
     entered_movie_budget = int(get_attr(entered_movie_info, 'budget'))
-    entered_movie_release_year = int(get_attr(
-        entered_movie_info,
-        'release_date')[:4])
+    entered_movie_release_date = get_attr(
+        entered_movie_info, 'release_date')
+    entered_movie_release_year = cut_movie_release_year_from(
+        entered_movie_release_date)
 
 for movie in movies_database:
-    if (movie['title'].lower().find(entered_movie_title.lower()) != -1):
+    if entered_movie_title.lower() in movie['title'].lower():
         similar_title_movies.append(movie['title'])
 
     if is_in_database(entered_movie_title):
-        if (entered_movie_budget + 10000 > movie['budget'] or
-                entered_movie_budget - 10000 < movie['budget']):
+        if movie['budget'] in range(
+           entered_movie_budget - 10000, entered_movie_budget + 10000):
             similar_budget_movies.append(movie['title'])
 
-        if entered_movie_release_year == int(movie['release_date'][:4]):
+        movie_release_year = cut_movie_release_year_from(
+            movie['release_date'])
+        if entered_movie_release_year == movie_release_year:
             equal_release_year_movies.append(movie['title'])
 
         for entered_movie_genre in entered_movie_genres:
