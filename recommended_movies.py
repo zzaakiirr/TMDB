@@ -4,9 +4,11 @@ with open('movies_database.json') as f_obj:
     movies_database = json.load(f_obj)
 
 
-def print_movies_from_list(movies_list):
+def get_all_movies_from(movies_list):
+    movies_to_print = ''
     for movie in movies_list:
-        print('\t' + movie)
+        movies_to_print += '\t' + movie + '\n'
+    return movies_to_print
 
 
 def cut_movie_release_year_from(movie_release_date):
@@ -73,15 +75,20 @@ for movie in movies_database:
                     similar_genre_movies.append(movie['title'])
 
 
-print('\nMovies with similar title:')
-print_movies_from_list(similar_title_movies)
+if __name__ == '__main__':
+    print(
+        '\nMovies with similar title:\n',
+        get_all_movies_from(similar_title_movies))
 
-if is_in_database(entered_movie_title):
-    print('\nMovies with similar budget:')
-    print_movies_from_list(similar_budget_movies)
+    if is_in_database(entered_movie_title):
+        print(
+            '\nMovies with similar budget:\n',
+            get_all_movies_from(similar_budget_movies))
 
-    print('\nMovies with the same release year:')
-    print_movies_from_list(equal_release_year_movies)
+        print(
+            '\nMovies with the same release year:\n',
+            get_all_movies_from(equal_release_year_movies))
 
-    print('\nMovies with the same genres:')
-    print_movies_from_list(similar_genre_movies)
+        print(
+            '\nMovies with the same genres:\n',
+            get_all_movies_from(similar_genre_movies))
