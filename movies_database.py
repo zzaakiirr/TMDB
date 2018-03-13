@@ -21,6 +21,7 @@ def make_tmdb_api_request(method, api_key, extra_params=None):
     params.update(extra_params)
     return load_json_data_from_url(url, params)
 
+
 movies_database = []
 first_movie_id = 2
 last_movie_id = 32
@@ -37,4 +38,5 @@ for movie_id in range(first_movie_id, last_movie_id):
 with open('movies_database.json', 'w') as f_obj:
     json.dump(movies_database, f_obj)
 
-print(movies_database)
+if __name__ == '__main__':
+    print(movies_database)
