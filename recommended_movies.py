@@ -4,14 +4,14 @@ with open('movies_database.json') as f_obj:
     movies_database = json.load(f_obj)
 
 
-def get_all_movies_from(movies_list):
+def get_all_movies_from_movies_list(movies_list):
     movies_to_print = ''
     for movie in movies_list:
         movies_to_print += '\t' + movie + '\n'
     return movies_to_print
 
 
-def cut_movie_release_year_from(movie_release_date):
+def cut_movie_release_year_from_its_release_date(movie_release_date):
     # movie_release_date format: 'year-month-day'
     movie_release_year = int(movie_release_date.split('-')[0])
     return movie_release_year
@@ -52,7 +52,7 @@ if is_in_database(entered_movie_title):
     entered_movie_budget = int(get_attr(entered_movie_info, 'budget'))
     entered_movie_release_date = get_attr(
         entered_movie_info, 'release_date')
-    entered_movie_release_year = cut_movie_release_year_from(
+    entered_movie_release_year = cut_movie_release_year_from_its_release_date(
         entered_movie_release_date)
 
 for movie in movies_database:
@@ -64,7 +64,7 @@ for movie in movies_database:
            entered_movie_budget - 10000, entered_movie_budget + 10000):
             similar_budget_movies.append(movie['title'])
 
-        movie_release_year = cut_movie_release_year_from(
+        movie_release_year = cut_movie_release_year_from_its_release_date(
             movie['release_date'])
         if entered_movie_release_year == movie_release_year:
             equal_release_year_movies.append(movie['title'])
@@ -78,17 +78,17 @@ for movie in movies_database:
 if __name__ == '__main__':
     print(
         '\nMovies with similar title:\n',
-        get_all_movies_from(similar_title_movies))
+        get_all_movies_from_movies_list(similar_title_movies))
 
     if is_in_database(entered_movie_title):
         print(
             '\nMovies with similar budget:\n',
-            get_all_movies_from(similar_budget_movies))
+            get_all_movies_from_movies_list(similar_budget_movies))
 
         print(
             '\nMovies with the same release year:\n',
-            get_all_movies_from(equal_release_year_movies))
+            get_all_movies_from_movies_list(equal_release_year_movies))
 
         print(
             '\nMovies with the same genres:\n',
-            get_all_movies_from(similar_genre_movies))
+            get_all_movies_from_movies_list(similar_genre_movies))
