@@ -14,7 +14,13 @@ def make_tmdb_api_request(method, api_key, extra_params=None):
     url = 'https://api.themoviedb.org/3%s' % method
     params = {
         'api_key': api_key,
-        'language': 'ru',
+        'language': 'en',
     }
     params.update(extra_params)
     return load_json_data_from_url(url, params)
+
+
+def load_json_data_from_json_package(file_name):
+    with open(file_name) as f_obj:
+        movies_database = json.load(f_obj)
+    return movies_database
