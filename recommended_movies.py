@@ -1,7 +1,5 @@
 import json
-
-with open('movies_database.json') as f_obj:
-    movies_database = json.load(f_obj)
+import helpers
 
 
 def get_all_movies_from_movies_list(movies_list):
@@ -37,58 +35,56 @@ def get_attr(entered_movie_title, searching_attr):
             return movie[searching_attr]
 
 
-entered_movie_title = input()
+if __name__ == '__main__':
+    movies_database = helpers.load_json_data_from_json_package(
+        'movies_database.json')
 
-similar_title_movies = []
-similar_genre_movies = []
-similar_budget_movies = []
-equal_release_year_movies = []
+    entered_movie_title = input()
 
-
-if is_in_database(entered_movie_title):
-    entered_movie_info = get_movie_info_from_database(entered_movie_title)
-
-    entered_movie_genres = get_attr(entered_movie_info, 'genres')
-    entered_movie_budget = int(get_attr(entered_movie_info, 'budget'))
-    entered_movie_release_date = get_attr(
-        entered_movie_info, 'release_date')
-    entered_movie_release_year = cut_movie_release_year_from_its_release_date(
-        entered_movie_release_date)
-
-for movie in movies_database:
-    if entered_movie_title.lower() in movie['title'].lower():
-        similar_title_movies.append(movie['title'])
+    similar_title_movies = []
+    similar_genre_movies = []
+    similar_budget_movies = []
+    equal_release_year_movies = []
 
     if is_in_database(entered_movie_title):
-        if movie['budget'] in range(
-           entered_movie_budget - 10000, entered_movie_budget + 10000):
-            similar_budget_movies.append(movie['title'])
+        entered_movie_info = get_movie_info_from_database(entered_movie_title)
 
-        movie_release_year = cut_movie_release_year_from_its_release_date(
-            movie['release_date'])
-        if entered_movie_release_year == movie_release_year:
-            equal_release_year_movies.append(movie['title'])
+        entered_movie_genres = get_attr(entered_movie_info, 'genres')
+        entered_movie_budget = int(get_attr(entered_movie_info, 'budget'))
+        entered_movie_release_date = get_attr(
+            entered_movie_info, 'release_date')
+        entered_movie_release_year = (
+            cut_movie_release_year_from_its_release_date(
+                entered_movie_release_date))
 
-        for entered_movie_genre in entered_movie_genres:
-            for current_movie_genre in movie['genres']:
-                if entered_movie_genre == current_movie_genre:
-                    similar_genre_movies.append(movie['title'])
+    for movie in movies_database:
+        if entered_movie_title.lower() in movie['title'].lower():
+            similar_title_movies.append(movie['title'])
 
+        if is_in_database(entered_movie_title):
+            if movie['budget'] in range(
+               entered_movie_budget - 10000, entered_movie_budget + 10000):
+                similar_budget_movies.append(movie['title'])
 
-if __name__ == '__main__':
+            movie_release_year = cut_movie_release_year_from_its_release_date(
+                movie['release_date'])
+            if entered_movie_release_year == movie_release_year:
+                equal_release_year_movies.append(movie['title'])
+
+            for entered_movie_genre in entered_movie_genres:
+                for current_movie_genre in movie['genres']:
+                    if entered_movie_genre == current_movie_genre:
+                        similar_genre_movies.append(movie['title'])
+
     print(
         '\nMovies with similar title:\n',
-        get_all_movies_from_movies_list(similar_title_movies))
+        get_all_movies_from_movies_list(similar_title_movies), end='')
 
     if is_in_database(entered_movie_title):
         print(
             '\nMovies with similar budget:\n',
-            get_all_movies_from_movies_list(similar_budget_movies))
-
-        print(
+            get_all_movies_from_movies_list(similar_budget_movies),
             '\nMovies with the same release year:\n',
-            get_all_movies_from_movies_list(equal_release_year_movies))
-
-        print(
+            get_all_movies_from_movies_list(equal_release_year_movies),
             '\nMovies with the same genres:\n',
             get_all_movies_from_movies_list(similar_genre_movies))
