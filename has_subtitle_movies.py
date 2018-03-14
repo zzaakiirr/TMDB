@@ -1,8 +1,10 @@
 import json
+import helpers
+
 
 if __name__ == '__main__':
-    with open('movies_database.json') as f_obj:
-        movies_database = json.load(f_obj)
+    movies_database = helpers.load_json_data_from_json_package(
+        'movies_database.json')
 
     user_search_subtitle = input()
 
