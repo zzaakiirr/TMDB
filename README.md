@@ -15,14 +15,14 @@ $ python3 <project_directory>/movies_database.py
 ```sh
 $ python3 <project_directory>/has_subtitle_movies.py
 ```
-> Recommend you similar films which you may interest you:
+> Recommend you similar to entered by you movies which may interest you:
 ```sh
 $ python3 <project_directory>/recommended_movies.py
 ```
 
 
 ### Installation
-You can just download project from github link (https://github.com/zzaakiirr/TMDB) and make whatever you want.
+You can download project from github link and make whatever you want with it
 
 # Authors
  - Zakir Djamaliddinov - zzaakiirr@gmail.com
